@@ -1,0 +1,116 @@
+---
+title: "spatialDmelxsim"
+author: "Michael Love"
+output: BiocStyle::html_document
+date: "`r doc_date()`"
+package: "`r pkg_ver('spatialDmelxsim')`"
+vignette: >
+  %\VignetteIndexEntry{spatialDmelxsim}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Allelic counts of D melanogaster D simulans cross
+
+This package contains data of allelic expression counts of spatial
+slices of a fly embryo, which is a *D melanogaster* x *D simulans*
+cross. The experiment is a reciprocal cross (see `strain`), with three
+replicates of one parental arrangement and two of another, which was
+sufficient to ensure at least one embryo of each sex for each parental
+arrangement.
+
+Data was downloaded from `GSE102233` as described in the publication:
+
+> Combs PA, Fraser HB (2018) 
+> Spatially varying cis-regulatory divergence in Drosophila embryos 
+> elucidates cis-regulatory logic. 
+> *PLOS Genetics* 14(11): e1007631. 
+> https://doi.org/10.1371/journal.pgen.1007631
+
+The scripts for creating the *SummarizedExperiment* object can be
+found in `inst/scripts/make-data.R`.
+
+```{r}
+# temporarily the file is available on Google Drive:
+# https://drive.google.com/file/d/1dzf5ZNKWW1KWNYmx9yae-yJbhYDPCQno/view?usp=sharing
+load("../spatialDmelxsim.rda")
+suppressPackageStartupMessages(library(SummarizedExperiment))
+se <- spatialDmelxsim
+```
+
+The rownames of the *SummarizedExperiment* are Ensembl IDs. For
+simplicity of code for plotting individual genes, we will change the
+rownames to gene symbols (those used in the paper). We check first
+that all genes have a symbol, because rownames cannot contain an NA.
+
+```{r}
+table(is.na(mcols(se)$paper_symbol))
+rownames(se) <- mcols(se)$paper_symbol
+```
+
+Note we use the following annotation of alleles:
+
+* a1: *D simulans*
+* a2: *D melanogaster*
+
+Then we calculate the allelic ratio for *D simulans* allele: 
+
+```{r}
+assay(se, "total") <- assay(se, "a1") + assay(se, "a2") 
+assay(se, "ratio") <- assay(se, "a1") / assay(se, "total")
+```
+
+We plot the ratio over the slice, using the `normSlice` column of
+metadata. This is the original `slice` number, scaled up to 27 (rep2
+had 26 slices and rep4 had 25 slices).
+
+```{r}
+plotGene <- function(gene) {
+  x <- se$normSlice
+  y <- assay(se, "ratio")[gene,]
+  col <- as.integer(se$rep)
+  plot(x, y, xlab="normSlice", ylab="sim / total ratio", ylim=c(0,1), main=gene, col=col)
+  lw <- loess(y ~ x, data=data.frame(x,y=unname(y)))
+  lines(sort(lw$x), lw$fitted[order(lw$x)], col="red", lwd=2)
+  abline(h=0.5, col="grey")
+}
+```
+
+An example of a gene with global bias toward the *simulans* allele.
+
+```{r DOR}
+#png(file="../man/figures/DOR.png")
+plotGene("DOR")
+#dev.off()
+```
+
+Example of two genes with spatial patterning of allelic expression:
+
+```{r uif}
+#png(file="../man/figures/uif.png")
+plotGene("uif")
+#dev.off()
+```
+
+```{r bmm}
+#png(file="../man/figures/bmm.png")
+plotGene("bmm")
+#dev.off()
+```
+
+```{r hb}
+#png(file="../man/figures/hb.png")
+plotGene("hb")
+#dev.off()
+```
+
+```{r CG4500}
+#png(file="../man/figures/CG4500.png")
+plotGene("CG4500")
+#dev.off()
+```
+
+
+```{r}
+sessionInfo()
+```

@@ -1,0 +1,3 @@
+inst/scripts/ase_files
+inst/scripts/*.gz
+*.rda
