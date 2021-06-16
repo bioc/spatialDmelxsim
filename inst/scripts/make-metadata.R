@@ -13,7 +13,7 @@ meta <- data.frame(
   Maintainer = "Michael Love <michaelisaiahlove@gmail.com>",
   RDataClass = "RangedSummarizedExperiment",
   DispatchClass = "Rda",
-  RDataPath = "spatialDmelxsim.rda",
+  RDataPath = "spatialDmelxsim/v1/spatialDmelxsim.rda",
   Tags = "allelic:ASE:spatial:embryo:patterning",
   Notes = "")
 
