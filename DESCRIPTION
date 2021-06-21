@@ -1,6 +1,6 @@
 Package: spatialDmelxsim
 Title: Spatial allelic expression counts for fly cross embryo
-Version: 0.99.6
+Version: 0.99.7
 Authors@R: person(given = "Michael",
            family = "Love",
            role = c("aut", "cre"),

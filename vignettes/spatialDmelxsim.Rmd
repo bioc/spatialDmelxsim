@@ -31,11 +31,16 @@ The scripts for creating the *SummarizedExperiment* object can be
 found in `inst/scripts/make-data.R`.
 
 ```{r}
-# temporarily the file is available on Google Drive:
-# https://drive.google.com/file/d/1dzf5ZNKWW1KWNYmx9yae-yJbhYDPCQno/view?usp=sharing
-load("../spatialDmelxsim.rda")
+library(ExperimentHub)
+eh <- ExperimentHub()
+query(eh, "spatialDmelxsim")
+listResources(eh, "spatialDmelxsim")
+se <- loadResources(eh, "spatialDmelxsim")[[1]]
+```
+
+```{r}
 suppressPackageStartupMessages(library(SummarizedExperiment))
-se <- spatialDmelxsim
+se
 ```
 
 The rownames of the *SummarizedExperiment* are Ensembl IDs. For
