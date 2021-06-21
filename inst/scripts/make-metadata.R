@@ -1,5 +1,5 @@
 meta <- data.frame(
-  Title = "Spatial allelic expression counts for fly cross embryo",
+  Title = "spatialDmelxsim",
   Description = "Allelic expression counts of spatial slices of a fly embryo from Combs & Fraser (2018), a D melanogaster x D simulans reciprocal cross",
   BiocVersion = "3.14",
   Genome = "dm6", 
