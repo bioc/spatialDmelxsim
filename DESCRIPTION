@@ -11,7 +11,7 @@ Description: Spatial allelic expression counts from Combs & Fraser (2018),
 Imports:
     utils
 Depends:
-    R (>= 3.5.0)
+    R (>= 3.5.0),
     ExperimentHub, 
     SummarizedExperiment
 License: MIT
