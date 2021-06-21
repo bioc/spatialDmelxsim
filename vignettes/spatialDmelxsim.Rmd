@@ -10,7 +10,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Allelic counts of D melanogaster D simulans cross
+# Allelic counts of D melanogaster x D simulans cross
 
 This package contains data of allelic expression counts of spatial
 slices of a fly embryo, which is a *D melanogaster* x *D simulans*
@@ -30,17 +30,20 @@ Data was downloaded from `GSE102233` as described in the publication:
 The scripts for creating the *SummarizedExperiment* object can be
 found in `inst/scripts/make-data.R`.
 
+We can find the resource via *ExperimentHub*:
+
 ```{r}
 library(ExperimentHub)
 eh <- ExperimentHub()
 query(eh, "spatialDmelxsim")
-listResources(eh, "spatialDmelxsim")
-se <- loadResources(eh, "spatialDmelxsim")[[1]]
 ```
+
+Or load directly with a function defined within this package:
 
 ```{r}
 suppressPackageStartupMessages(library(SummarizedExperiment))
-se
+library(spatialDmelxsim)
+se <- spatialDmelxsim()
 ```
 
 The rownames of the *SummarizedExperiment* are Ensembl IDs. For
@@ -84,37 +87,57 @@ plotGene <- function(gene) {
 An example of a gene with global bias toward the *simulans* allele.
 
 ```{r DOR}
-#png(file="../man/figures/DOR.png")
 plotGene("DOR")
-#dev.off()
 ```
 
-Example of two genes with spatial patterning of allelic expression:
+Example of some genes with spatial patterning of allelic expression:
 
 ```{r uif}
-#png(file="../man/figures/uif.png")
 plotGene("uif")
-#dev.off()
 ```
 
 ```{r bmm}
-#png(file="../man/figures/bmm.png")
 plotGene("bmm")
-#dev.off()
 ```
 
 ```{r hb}
-#png(file="../man/figures/hb.png")
 plotGene("hb")
-#dev.off()
 ```
 
 ```{r CG4500}
-#png(file="../man/figures/CG4500.png")
 plotGene("CG4500")
-#dev.off()
 ```
 
+Other interesting spatial genes can be found by consulting the Combs
+and Fraser (2018) paper, in Supplementary Figure 6 "Complete heatmap
+of ASE for genes with svASE." Other species-specific genes are found
+in Supplementary Figure 7 "Genes with species-specific expression,
+regardless of parent of origin." Note that the SF6 spatially varying
+ASE genes are labelled in `mcols(se)$scASE`.
+
+# Additional details
+
+As said above, the file `inst/scripts/make-data.R` provides the script
+that was used to construct the *SummarizedExperiment* object from the
+data available on GEO. Here are some additional details:
+
+* The original allelic counts on GEO were assembled for 2,959 of the
+  genes (labelled in `mcols(se)$matchDm557`). When compiling the data I
+  noticed that other genes, where the genomic locations of dm5.57 and
+  dm6 were not a match, had missing allelic counts. The current
+  dataset is provided with respect to dm6.
+* For those genes with missing allelic counts, I instead used the FPKM
+  data on GEO and the allelic counts that were not missing, to predict
+  the total allelic count from abundance, per sample (with ~82% r2).
+* Finally I used an ASE file on GEO to impute the allelic counts from
+  the allelic ratio and predicted total allelic count. These 5,673
+  genes are labelled in `mcols(se)$predicted`.
+* There are two symbol columns in `mcols(se)`. One is the SYMBOL that
+  matches the Ensembl `gene_id` according to `org.Dm.eg.db`. The other
+  is the symbol that I obtained from the per-sample FPKM matrices
+  which have both Ensembl and gene symbols. The `paper_symbol` column
+  is therefore better for matching genes according to their ID in the
+  paper figures.
 
 ```{r}
 sessionInfo()

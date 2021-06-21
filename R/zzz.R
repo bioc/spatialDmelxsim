@@ -10,6 +10,8 @@
 #' PLOS Genetics 14(11): e1007631.
 #'
 #' @importFrom utils read.csv
+#' @importFrom ExperimentHub createHubAccessors
+#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @docType package
 #' @name spatialDmelxsim
 NULL
