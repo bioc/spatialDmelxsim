@@ -14,7 +14,7 @@ Depends:
     R (>= 3.5.0),
     ExperimentHub, 
     SummarizedExperiment
-License: MIT
+License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
