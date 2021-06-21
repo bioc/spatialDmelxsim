@@ -10,7 +10,8 @@ Description: Spatial allelic expression counts from Combs & Fraser (2018),
     details on the data source.
 Imports:
     utils
-Depends: 
+Depends:
+    R (>= 3.5.0)
     ExperimentHub, 
     SummarizedExperiment
 License: MIT
