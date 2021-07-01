@@ -9,6 +9,12 @@
 #' in Drosophila embryos elucidates cis-regulatory logic.
 #' PLOS Genetics 14(11): e1007631.
 #'
+#' @examples
+#'
+#' suppressPackageStartupMessages(library(SummarizedExperiment))
+#' se <- spatialDmelxsim()
+#' se
+#' 
 #' @importFrom utils read.csv
 #' @importFrom ExperimentHub createHubAccessors
 #' @importFrom SummarizedExperiment SummarizedExperiment

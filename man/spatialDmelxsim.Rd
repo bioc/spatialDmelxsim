@@ -8,6 +8,13 @@
 Allelic expression counts of spatial slices of a fly embryo from
 Combs & Fraser (2018), a D melanogaster x D simulans reciprocal cross
 }
+\examples{
+
+suppressPackageStartupMessages(library(SummarizedExperiment))
+se <- spatialDmelxsim()
+se
+
+}
 \references{
 Combs PA, Fraser HB (2018) Spatially varying cis-regulatory divergence
 in Drosophila embryos elucidates cis-regulatory logic.

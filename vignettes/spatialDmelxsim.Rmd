@@ -5,9 +5,9 @@ output: BiocStyle::html_document
 date: "`r doc_date()`"
 package: "`r pkg_ver('spatialDmelxsim')`"
 vignette: >
-  %\VignetteIndexEntry{spatialDmelxsim}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{spatialDmelxsim}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
 
 # Allelic counts of D melanogaster x D simulans cross
@@ -74,13 +74,14 @@ had 26 slices and rep4 had 25 slices).
 
 ```{r}
 plotGene <- function(gene) {
-  x <- se$normSlice
-  y <- assay(se, "ratio")[gene,]
-  col <- as.integer(se$rep)
-  plot(x, y, xlab="normSlice", ylab="sim / total ratio", ylim=c(0,1), main=gene, col=col)
-  lw <- loess(y ~ x, data=data.frame(x,y=unname(y)))
-  lines(sort(lw$x), lw$fitted[order(lw$x)], col="red", lwd=2)
-  abline(h=0.5, col="grey")
+    x <- se$normSlice
+    y <- assay(se, "ratio")[gene,]
+    col <- as.integer(se$rep)
+    plot(x, y, xlab="normSlice", ylab="sim / total ratio",
+        ylim=c(0,1), main=gene, col=col)
+    lw <- loess(y ~ x, data=data.frame(x,y=unname(y)))
+    lines(sort(lw$x), lw$fitted[order(lw$x)], col="red", lwd=2)
+    abline(h=0.5, col="grey")
 }
 ```
 

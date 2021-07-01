@@ -1,17 +1,20 @@
 Package: spatialDmelxsim
 Title: Spatial allelic expression counts for fly cross embryo
-Version: 0.99.8
+Version: 0.99.9
 Authors@R: person(given = "Michael",
            family = "Love",
            role = c("aut", "cre"),
            email = "michaelisaiahlove@gmail.com")
 Description: Spatial allelic expression counts from Combs & Fraser (2018),
-    compiled into a SummarizedExperiment object. See CITATION file for
-    details on the data source.
+    compiled into a SummarizedExperiment object. This package contains data
+    of allelic expression counts of spatial slices of a fly embryo,
+    a Drosophila melanogaster x Drosophila simulans cross. See the CITATION
+    file for the data source, and the associated script for how the object
+    was constructed from publicly available data.
 Imports:
     utils
 Depends:
-    R (>= 3.5.0),
+    R (>= 4.1),
     ExperimentHub, 
     SummarizedExperiment
 License: GPL-3
