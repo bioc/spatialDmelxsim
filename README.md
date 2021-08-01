@@ -3,8 +3,22 @@
 Allelic counts from Combs & Fraser (2018), compiled into a
 *SummarizedExperiment* object.
 
-Here, `a1` assay is the *D simulans* allelic count, `a2` assay is the
-*D melanogaster* allelic count.
+Package is available on Bioconductor as of August 2021:
+
+<https://bioconductor.org/packages/spatialDmelxsim>
+
+After the package is released in October 2021:
+
+```
+BiocManager::install("spatialDmelxsim")
+suppressPackageStartupMessages(library(SummarizedExperiment))
+library(spatialDmelxsim)
+se <- spatialDmelxsim()
+```
+
+The assays of `se` include `a1` and `a2`. Here, `a1` assay is the *D
+simulans* allelic count, `a2` assay is the *D melanogaster* allelic
+count.
 
 Data downloaded from `GSE102233` as described in the publication:
 
@@ -13,12 +27,6 @@ Data downloaded from `GSE102233` as described in the publication:
 > elucidates cis-regulatory logic. 
 > *PLOS Genetics* 14(11): e1007631. 
 > https://doi.org/10.1371/journal.pgen.1007631
-
-## File location
-
-Temporarily the file is available on Google Drive:
-
-https://drive.google.com/file/d/1dzf5ZNKWW1KWNYmx9yae-yJbhYDPCQno/view?usp=sharing
 
 ## R scripts
 
